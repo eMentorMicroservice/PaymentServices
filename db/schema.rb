@@ -10,15 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_25_102737) do
+ActiveRecord::Schema.define(version: 2019_12_25_225536) do
+
+  create_table "user_balances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "balance_cents", default: 0, null: false
+    t.string "balance_currency", default: "USD", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_balances_on_user_id"
+  end
 
   create_table "user_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "user_id"
     t.string "card_number"
     t.date "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_cards_on_user_id"
+    t.bigint "user_balance_id", null: false
+    t.index ["user_balance_id"], name: "index_user_cards_on_user_balance_id"
   end
 
+  add_foreign_key "user_cards", "user_balances"
 end

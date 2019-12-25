@@ -1,6 +1,7 @@
 class UserCard < ApplicationRecord
   validates :card_number, presence: true, credit_card_number: true
-  validates :user_id, :expired_at, presence: true
+  validates :expired_at, presence: true
+  belongs_to :user_balance
 
   def brand
     detector = CreditCardValidations::Detector.new(self.card_number)
@@ -14,7 +15,7 @@ class UserCard < ApplicationRecord
   def info
     {
       id: self.id,
-      user_id: self.user_id,
+      user_id: self.user_balance.user_id,
       brand: self.brand,
       last_number: self.last_number,
       card_length: self.card_number.length,
