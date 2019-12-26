@@ -3,4 +3,8 @@ Rails.application.routes.draw do
     post 'save_card'
     get 'validate_card'
   end
+
+  namespace :user_balances do
+    get 'info'
+  end
 end
