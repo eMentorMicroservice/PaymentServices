@@ -10,4 +10,12 @@ class UserBalance < ApplicationRecord
       balance: self.balance.format
     }
   end
+
+  def find_card(card_id)
+    self.user_cards.find_by(id: card_id)
+  end
+
+  def self.find_by_user(user_id)
+    self.create_with(balance: 0).find_or_create_by(user_id: user_id)
+  end
 end

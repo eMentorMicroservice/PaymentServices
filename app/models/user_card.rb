@@ -12,6 +12,10 @@ class UserCard < ApplicationRecord
     self.card_number.split(//).last(4).join
   end
 
+  def create_withdraw(amount)
+    
+  end
+
   def info
     {
       id: self.id,
