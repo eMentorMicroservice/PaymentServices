@@ -23,4 +23,11 @@ class TransactionController < ApplicationController
       render json: {status: 502, error: "Cannot find user's credit card"}
     end
   end
+
+  def checkout
+    user = UserBalance.find_by_user(params[:user_id])
+    tutor = UserBalance.find_by_user(params[:tutor_id])
+    user.pay(tutor, params[:amount])
+  end
+  
 end

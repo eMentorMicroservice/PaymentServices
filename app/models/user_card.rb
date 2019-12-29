@@ -1,6 +1,5 @@
 class UserCard < ApplicationRecord
-  validates :card_number, presence: true, credit_card_number: true
-  validates :expired_at, presence: true
+  validates :card_number,  credit_card_number: true
   belongs_to :user_balance
   has_many :transactions
   before_validation :strip_card_number

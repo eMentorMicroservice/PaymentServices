@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_26_040404) do
+ActiveRecord::Schema.define(version: 2019_12_29_160432) do
 
   create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "user_card_id", null: false
-    t.integer "direction"
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_card_id"], name: "index_transactions_on_user_card_id"
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.integer "fee_cents", default: 0, null: false
+    t.string "fee_currency", default: "USD", null: false
+    t.datetime "executed_at"
+    t.integer "trans_type"
   end
 
   create_table "user_balances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -40,6 +43,5 @@ ActiveRecord::Schema.define(version: 2019_12_26_040404) do
     t.index ["user_balance_id"], name: "index_user_cards_on_user_balance_id"
   end
 
-  add_foreign_key "transactions", "user_cards"
   add_foreign_key "user_cards", "user_balances"
 end

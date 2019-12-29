@@ -18,4 +18,8 @@ class UserBalance < ApplicationRecord
   def self.find_by_user(user_id)
     self.create_with(balance: 0).find_or_create_by(user_id: user_id)
   end
+
+  def pay(tutor, amount)
+    Transaction.transfer(self.id, tutor.id, Money.new(amount))
+  end
 end
