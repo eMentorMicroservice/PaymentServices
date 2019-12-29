@@ -32,10 +32,11 @@ class UserCard < ApplicationRecord
       id: self.id,
       user_id: self.user_balance.user_id,
       brand: self.brand,
+      card_name: card_name,
       last_number: self.last_number,
       card_length: self.card_number.length,
-      month_expired_at: self.expired_at.month,
-      year_expired_at: self.expired_at.year,
+      expired_month: self.expired_month,
+      expired_year: self.expired_year,
     } 
   end
 
