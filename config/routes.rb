@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   namespace :user_balances do
     get 'info'
   end
+
+  namespace :transaction do
+    post 'withdraw'
+  end
 end

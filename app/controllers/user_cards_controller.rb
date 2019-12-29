@@ -6,7 +6,7 @@ class UserCardsController < ApplicationController
     user_id = params[:user_id]
     month = params[:month].to_i
     year = params[:year].to_i
-    card_number = params[:card_number].gsub(/\s+/, '')
+    card_number = params[:card_number]
     expired_at = DateTime.new(year, month, 1)
     user_balance = UserBalance.find_by(user_id: user_id)
     card = UserCard.new(user_balance_id: user_balance.id, card_number: card_number, expired_at: expired_at)

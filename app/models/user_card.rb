@@ -2,6 +2,8 @@ class UserCard < ApplicationRecord
   validates :card_number, presence: true, credit_card_number: true
   validates :expired_at, presence: true
   belongs_to :user_balance
+  has_many :transactions
+  before_validation :strip_card_number
 
   def brand
     detector = CreditCardValidations::Detector.new(self.card_number)
@@ -12,8 +14,18 @@ class UserCard < ApplicationRecord
     self.card_number.split(//).last(4).join
   end
 
+  def encode_number
+    'X'*(self.card_number.length-4)+self.last_number
+  end
+
   def create_withdraw(amount)
-    
+    if self.user_balance.balance >= Money.new(amount)
+      transaction = self.transactions.build(direction: :withdraw, amount: amount)
+      transaction.save
+      transaction
+    else
+      nil
+    end
   end
 
   def info
@@ -37,6 +49,10 @@ class UserCard < ApplicationRecord
     end
   end
 
+  private
 
+  def strip_card_number
+    self.card_number.gsub(/\s+/, '')
+  end
 
 end
