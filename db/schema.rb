@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_29_160432) do
+ActiveRecord::Schema.define(version: 2019_12_29_162446) do
 
   create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
@@ -36,10 +36,12 @@ ActiveRecord::Schema.define(version: 2019_12_29_160432) do
 
   create_table "user_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "card_number"
-    t.date "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_balance_id", null: false
+    t.string "card_name"
+    t.integer "expired_month"
+    t.integer "expired_year"
     t.index ["user_balance_id"], name: "index_user_cards_on_user_balance_id"
   end
 
