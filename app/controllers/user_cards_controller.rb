@@ -29,7 +29,7 @@ class UserCardsController < ApplicationController
     if brand
       render json: {status: 200, brand: brand}
     else
-      render json: {status: 502, error: 'Invalid'}
+      render json: {status: 502, error: 'Invalid Card Number'}
     end
   end
 end

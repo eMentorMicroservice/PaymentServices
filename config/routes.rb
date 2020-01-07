@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :user_cards do
     post 'save_card'
-    get 'validate_card'
+    post 'validate_card'
   end
 
   namespace :user_balances do
